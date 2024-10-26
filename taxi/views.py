@@ -92,9 +92,9 @@ class CarDriverUpdateView(LoginRequiredMixin, generic.View):
             car = Car.objects.get(pk=pk)
         except Car.DoesNotExist:
             return HttpResponseBadRequest("Car does not exist")
-        drivers = car.drivers
+        drivers = car.drivers.all
 
-        if request.user in drivers.all():
+        if request.user in drivers:
             drivers.remove(request.user)
         else:
             drivers.add(request.user)
